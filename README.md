@@ -7,6 +7,9 @@ to it. It can currently evaluate the current selection or line and display
 the type of expressions. Because it uses `ghci` you should also be able
 to `import` libraries and do other things that `ghci` supports.
 
+If you have `hoogle` installed, then you can also view the documentation
+for the current symbol or the current selection.
+
 ## setup
 
 To be able to infer the types of expressions put something like the
@@ -17,11 +20,18 @@ following in your `user.keymap`:
 Alternatively you can use the sidebar actions `Eval: Eval a form in an editor`
 and `Eval: Get the type of a form in editor` directly.
 
+For documentation support you have to install `hoogle` and generate an index
+with it:
+
+    $ cabal install hoogle
+    # wait a bit
+    $ hoogle data
+    # wait a bit longer
+
 ## todo
 
 * select expressions/forms (ideally by asking a proper haskell parser,
     but maybe a guessing based on indentation would also work?)
-* show documentation for variables (haddock, hoogle?)
 * search for functions that fit a given type (hoogle supports this but
     might not have an api)
 * code-completion
