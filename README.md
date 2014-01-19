@@ -25,6 +25,7 @@ and `Eval: Get the type of a form in editor` directly.
 * search for functions that fit a given type (hoogle supports this but
     might not have an api)
 * code-completion
+* navigate to the source for code
 
 ## ideas
 
