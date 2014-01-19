@@ -30,3 +30,5 @@ and `Eval: Get the type of a form in editor` directly.
 
 * this interaction style might be suitable for other language
     plugins (spawning a repl, sending commands to it)
+* maybe use [hdevtools](https://github.com/bitc/hdevtools) or
+    [ghc-mod](https://github.com/kazu-yamamoto/ghc-mod)
