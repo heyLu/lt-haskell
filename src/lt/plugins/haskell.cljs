@@ -41,11 +41,12 @@
                            (.write (.-stdin p) ":set prompt \"--EvalFinished--\\n\"\n")))]
     (add-watch o :ghci-watch (fn [_ _ old new]
                                (let [old-out (get-in old [:proc :out])
-                                     new-out (get-in new [:proc :out])]
+                                     new-out (get-in new [:proc :out])
+                                     err-out (get-in new [:proc :error])]
                                  (if (and new-out
                                           (not= old-out new-out)
                                           (.contains new-out "--EvalFinished--"))
-                                   (cb new-out)))))
+                                   (cb (or err-out new-out))))))
     o))
 
 (defn ghci-command [ghci-obj command]
@@ -78,7 +79,9 @@
           res (if (string/blank? res)
                 "-- ok"
                 res)]
-      (object/raise editor :editor.result res loc))))
+      (if (re-find #"\*\*\* Exception|<interactive>" res)
+        (object/raise editor :editor.exception res loc)
+        (object/raise editor :editor.result res loc)))))
 
 (behavior ::eval!
           :triggers #{:eval!}
