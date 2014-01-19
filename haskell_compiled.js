@@ -91,7 +91,7 @@ lt.objs.langs.haskell.prepare_code = (function prepare_code(code){return clojure
 });
 
 lt.objs.langs.haskell.get_ghci = (function get_ghci(editor){var ghci = new cljs.core.Keyword(null,"haskell.client","haskell.client",4292563063).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,editor));var ghci__$1 = ((cljs.core.not.call(null,ghci))?(function (){var ghci__$1 = lt.objs.langs.haskell.ghci_process.call(null,((function (ghci){
-return (function (p1__8263_SHARP_,p2__8264_SHARP_){return cljs.core.get_in.call(null,cljs.core.deref.call(null,editor),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.result-fn","haskell.result-fn",3772146800)], null)).call(null,p1__8263_SHARP_,p2__8264_SHARP_);
+return (function (p1__8339_SHARP_,p2__8340_SHARP_){return cljs.core.get_in.call(null,cljs.core.deref.call(null,editor),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.result-fn","haskell.result-fn",3772146800)], null)).call(null,p1__8339_SHARP_,p2__8340_SHARP_);
 });})(ghci))
 );lt.object.update_BANG_.call(null,editor,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.client","haskell.client",4292563063)], null),((function (ghci__$1,ghci){
 return (function (_,n){return n;
@@ -101,7 +101,7 @@ return ghci__$1;
 })():ghci);return ghci__$1;
 });
 
-lt.objs.langs.haskell.__BEH__eval_BANG_ = (function __BEH__eval_BANG_(this$,event){var map__8266 = event;var map__8266__$1 = ((cljs.core.seq_QMARK_.call(null,map__8266))?cljs.core.apply.call(null,cljs.core.hash_map,map__8266):map__8266);var origin = cljs.core.get.call(null,map__8266__$1,new cljs.core.Keyword(null,"origin","origin",4300251800));var info = cljs.core.get.call(null,map__8266__$1,new cljs.core.Keyword(null,"info","info",1017141280));var loc = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"line","line",1017226086),(function (){var or__6741__auto__ = cljs.core.get_in.call(null,info,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"meta","meta",1017252215),new cljs.core.Keyword(null,"end","end",1014004813)], null));if(cljs.core.truth_(or__6741__auto__))
+lt.objs.langs.haskell.__BEH__eval_BANG_ = (function __BEH__eval_BANG_(this$,event){var map__8342 = event;var map__8342__$1 = ((cljs.core.seq_QMARK_.call(null,map__8342))?cljs.core.apply.call(null,cljs.core.hash_map,map__8342):map__8342);var origin = cljs.core.get.call(null,map__8342__$1,new cljs.core.Keyword(null,"origin","origin",4300251800));var info = cljs.core.get.call(null,map__8342__$1,new cljs.core.Keyword(null,"info","info",1017141280));var loc = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"line","line",1017226086),(function (){var or__6741__auto__ = cljs.core.get_in.call(null,info,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"meta","meta",1017252215),new cljs.core.Keyword(null,"end","end",1014004813)], null));if(cljs.core.truth_(or__6741__auto__))
 {return or__6741__auto__;
 } else
 {return cljs.core.get_in.call(null,info,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"pos","pos",1014015430),new cljs.core.Keyword(null,"line","line",1017226086)], null));
@@ -134,8 +134,18 @@ lt.objs.sidebar.command.command.call(null,new cljs.core.PersistentArrayMap(null,
 }
 })], null));
 
-lt.objs.langs.haskell.__BEH__doc = (function __BEH__doc(editor){if(cljs.core.truth_(lt.objs.editor.selection_QMARK_.call(null,editor)))
-{var loc = lt.objs.editor.__GT_cursor.call(null,editor,"end");var token = lt.objs.editor.selection.call(null,editor);var cmd = [cljs.core.str("hoogle search -i "),cljs.core.str(token)].join('');return lt.objs.langs.haskell.exec.call(null,cmd,(function (return_code,output){if(cljs.core._EQ_.call(null,return_code,0))
+lt.objs.langs.haskell.__BEH__doc = (function __BEH__doc(editor){var loc = lt.objs.editor.__GT_cursor.call(null,editor);var token = (cljs.core.truth_(lt.objs.editor.selection_QMARK_.call(null,editor))?lt.objs.editor.selection.call(null,editor):(function (){var tok = lt.objs.editor.__GT_token.call(null,editor,loc);if(cljs.core.truth_((function (){var or__6741__auto__ = cljs.core.not.call(null,new cljs.core.Keyword(null,"type","type",1017479852).cljs$core$IFn$_invoke$arity$1(tok));if(or__6741__auto__)
+{return or__6741__auto__;
+} else
+{return new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 2, ["number",null,"string",null], null), null).call(null,new cljs.core.Keyword(null,"type","type",1017479852).cljs$core$IFn$_invoke$arity$1(tok));
+}
+})()))
+{return null;
+} else
+{return new cljs.core.Keyword(null,"string","string",4416885635).cljs$core$IFn$_invoke$arity$1(tok);
+}
+})());var cmd = [cljs.core.str("hoogle search -i "),cljs.core.str(token)].join('');if(cljs.core.truth_(token))
+{return lt.objs.langs.haskell.exec.call(null,cmd,(function (return_code,output){if(cljs.core._EQ_.call(null,return_code,0))
 {return lt.object.raise.call(null,editor,new cljs.core.Keyword(null,"editor.doc.show!","editor.doc.show!",1417900223),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"name","name",1017277949),token,new cljs.core.Keyword(null,"ns","ns",1013907767),"",new cljs.core.Keyword(null,"doc","doc",1014003882),output,new cljs.core.Keyword(null,"loc","loc",1014011570),loc], null));
 } else
 {return lt.object.raise.call(null,editor,new cljs.core.Keyword(null,"editor.exception","editor.exception",3983021184),output,loc);

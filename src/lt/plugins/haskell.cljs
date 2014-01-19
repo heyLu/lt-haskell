@@ -134,10 +134,15 @@
 (behavior ::doc
           :triggers #{:editor.doc}
           :reaction (fn [editor]
-                      (if (ed/selection? editor)
-                        (let [loc (ed/->cursor editor "end")
-                              token (ed/selection editor)
-                              cmd (str "hoogle search -i " token)]
+                      (let [loc (ed/->cursor editor)
+                            token (if (ed/selection? editor)
+                                    (ed/selection editor)
+                                    (let [tok (ed/->token editor loc)]
+                                      (if (or (not (:type tok)) (#{"string" "number"} (:type tok)))
+                                        nil
+                                        (:string tok))))
+                            cmd (str "hoogle search -i " token)]
+                        (when token
                           (exec cmd (fn [return-code output]
                                       (if (= return-code 0)
                                         (object/raise editor :editor.doc.show! {:name token, :ns "", :doc output, :loc loc})
