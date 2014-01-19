@@ -46,7 +46,7 @@
                                  (if (and new-out
                                           (not= old-out new-out)
                                           (.contains new-out "--EvalFinished--"))
-                                   (cb (or err-out new-out))))))
+                                   (cb new-out err-out)))))
     o))
 
 (defn ghci-command [ghci-obj command]
@@ -73,14 +73,14 @@
                                                         :info info})))))
 
 (defn show-result [editor loc]
-  (fn [output]
+  (fn [output error-output]
     (let [results (string/split output "--EvalFinished--\n")
           res (peek results)
           res (if (string/blank? res)
                 "-- ok"
                 res)]
-      (if (re-find #"\*\*\* Exception|<interactive>" res)
-        (object/raise editor :editor.exception res loc)
+      (if error-output
+        (object/raise editor :editor.exception error-output loc)
         (object/raise editor :editor.result res loc)))))
 
 (behavior ::eval!
@@ -91,7 +91,7 @@
                                            (get-in info [:pos :line]))}
                             ghci (-> @origin :haskell.client)
                             ghci (if-not ghci
-                                   (let [ghci (ghci-process #((get-in @origin [:haskell.result-fn]) %))]
+                                   (let [ghci (ghci-process #((get-in @origin [:haskell.result-fn]) %1 %2))]
                                      (object/update! origin [:haskell.client] (fn [_ n] n) ghci)
                                      ghci)
                                    ghci)]
