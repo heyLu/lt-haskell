@@ -1,6 +1,8 @@
 {:+ {:app [(:lt.objs.plugins/load-js ["codemirror/haskell.js" "haskell_compiled.js"])]
      :editor.haskell [:lt.objs.langs.haskell/on-eval.one
                       :lt.objs.langs.haskell/on-eval.type
+                      :lt.objs.langs.haskell/doc
+                      :lt.plugins.doc/editor.doc.show!
                       (:lt.objs.editor/tab-settings false 4 4)]
      :files [(:lt.objs.files/file-types [{:name "Haskell" :exts [:hs] :mime "text/x-haskell" :tags [:editor.haskell]}])]
      :haskell.lang [:lt.objs.langs.haskell/eval! :lt.objs.langs.haskell/connect]}}

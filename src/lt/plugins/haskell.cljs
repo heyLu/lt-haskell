@@ -6,9 +6,12 @@
             [lt.objs.proc :as proc]
             [lt.objs.notifos :as notifos]
             [lt.objs.sidebar.command :as cmd]
+            [lt.util.load :as load]
 
             [clojure.string :as string])
   (:require-macros [lt.macros :refer [behavior]]))
+
+(def exec (.-exec (load/node-module "shelljs")))
 
 (behavior ::on-proc-out
           :triggers #{:proc.out}
@@ -127,6 +130,18 @@
               :exec (fn []
                       (when-let [ed (pool/last-active)]
                         (object/raise ed :eval.type)))})
+
+(behavior ::doc
+          :triggers #{:editor.doc}
+          :reaction (fn [editor]
+                      (if (ed/selection? editor)
+                        (let [loc (ed/->cursor editor "end")
+                              token (ed/selection editor)
+                              cmd (str "hoogle search -i " token)]
+                          (exec cmd (fn [return-code output]
+                                      (if (= return-code 0)
+                                        (object/raise editor :editor.doc.show! {:name token, :ns "", :doc output, :loc loc})
+                                        (object/raise editor :editor.exception output loc))))))))
 
 (object/object* ::haskell-lang
                 :tags #{:haskell.lang})
