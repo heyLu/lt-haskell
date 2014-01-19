@@ -2,8 +2,10 @@
   (:require [lt.object :as object]
             [lt.objs.files :as files]
             [lt.objs.editor :as ed]
+            [lt.objs.editor.pool :as pool]
             [lt.objs.proc :as proc]
             [lt.objs.notifos :as notifos]
+            [lt.objs.sidebar.command :as cmd]
 
             [clojure.string :as string])
   (:require-macros [lt.macros :refer [behavior]]))
@@ -55,19 +57,23 @@
                                        (assoc p :out nil :error nil)))
     (.write stdin (str command "\n"))))
 
+(defn selection-info [editor]
+  (let [pos (ed/->cursor editor)
+        info (:info @editor)
+        info (if (ed/selection? editor)
+               (assoc info
+                 :meta {:start (-> (ed/->cursor editor "start") :line)
+                        :end (-> (ed/->cursor editor "end") :line)}
+                 :code (ed/selection editor))
+               (assoc info
+                 :pos pos
+                 :code (ed/line editor (:line pos))))]
+    info))
+
 (behavior ::on-eval.one
           :triggers #{:eval.one}
           :reaction (fn [editor]
-                      (let [pos (ed/->cursor editor)
-                            info (:info @editor)
-                            info (if (ed/selection? editor)
-                                   (assoc info
-                                     :meta {:start (-> (ed/->cursor editor "start") :line)
-                                            :end (-> (ed/->cursor editor "end") :line)}
-                                     :code (ed/selection editor))
-                                   (assoc info
-                                     :pos pos
-                                     :code (ed/line editor (:line pos))))]
+                      (let [info (selection-info editor)]
                         (when-not (string/blank? (:code info))
                           (object/raise haskell :eval! {:origin editor
                                                         :info info})))))
@@ -86,20 +92,41 @@
 (defn prepare-code [code]
   (string/replace code #"^(\w+)(\s+)?=" "let $1 ="))
 
+(defn get-ghci [editor]
+  (let [ghci (-> @editor :haskell.client)
+        ghci (if-not ghci
+               (let [ghci (ghci-process #((get-in @editor [:haskell.result-fn]) %1 %2))]
+                 (object/update! editor [:haskell.client] (fn [_ n] n) ghci)
+                 ghci)
+               ghci)]
+    ghci))
+
 (behavior ::eval!
           :triggers #{:eval!}
           :reaction (fn [this event]
                       (let [{:keys [info origin]} event
                             loc {:line (or (get-in info [:meta :end])
                                            (get-in info [:pos :line]))}
-                            ghci (-> @origin :haskell.client)
-                            ghci (if-not ghci
-                                   (let [ghci (ghci-process #((get-in @origin [:haskell.result-fn]) %1 %2))]
-                                     (object/update! origin [:haskell.client] (fn [_ n] n) ghci)
-                                     ghci)
-                                   ghci)]
+                            ghci (get-ghci origin)]
                         (object/update! origin [:haskell.result-fn] (fn [_ n] n) (show-result origin loc))
                         (ghci-command ghci (prepare-code (:code info))))))
+
+(behavior ::on-eval.type
+          :triggers #{:eval.type}
+          :reaction (fn [editor]
+                      (let [info (selection-info editor)
+                            loc {:line (or (get-in info [:meta :end])
+                                           (get-in info [:pos :line]))}
+                            ghci (get-ghci editor)]
+                        (when-not (string/blank? (:code info))
+                          (object/update! editor [:haskell.result-fn] (fn [_ n] n) (show-result editor loc))
+                          (ghci-command ghci (str ":type " (prepare-code (:code info))))))))
+
+(cmd/command {:command :editor-type-form
+              :desc "Eval: Get the type of a form in editor"
+              :exec (fn []
+                      (when-let [ed (pool/last-active)]
+                        (object/raise ed :eval.type)))})
 
 (object/object* ::haskell-lang
                 :tags #{:haskell.lang})
