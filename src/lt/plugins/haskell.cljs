@@ -83,6 +83,9 @@
         (object/raise editor :editor.exception error-output loc)
         (object/raise editor :editor.result res loc)))))
 
+(defn prepare-code [code]
+  (string/replace code #"^(\w+)(\s+)?=" "let $1 ="))
+
 (behavior ::eval!
           :triggers #{:eval!}
           :reaction (fn [this event]
@@ -96,7 +99,7 @@
                                      ghci)
                                    ghci)]
                         (object/update! origin [:haskell.result-fn] (fn [_ n] n) (show-result origin loc))
-                        (ghci-command ghci (:code info)))))
+                        (ghci-command ghci (prepare-code (:code info))))))
 
 (object/object* ::haskell-lang
                 :tags #{:haskell.lang})

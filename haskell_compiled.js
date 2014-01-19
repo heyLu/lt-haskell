@@ -76,22 +76,25 @@ lt.objs.langs.haskell.show_result = (function show_result(editor,loc){return (fu
 });
 });
 
-lt.objs.langs.haskell.__BEH__eval_BANG_ = (function __BEH__eval_BANG_(this$,event){var map__8252 = event;var map__8252__$1 = ((cljs.core.seq_QMARK_.call(null,map__8252))?cljs.core.apply.call(null,cljs.core.hash_map,map__8252):map__8252);var origin = cljs.core.get.call(null,map__8252__$1,new cljs.core.Keyword(null,"origin","origin",4300251800));var info = cljs.core.get.call(null,map__8252__$1,new cljs.core.Keyword(null,"info","info",1017141280));var loc = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"line","line",1017226086),(function (){var or__6741__auto__ = cljs.core.get_in.call(null,info,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"meta","meta",1017252215),new cljs.core.Keyword(null,"end","end",1014004813)], null));if(cljs.core.truth_(or__6741__auto__))
+lt.objs.langs.haskell.prepare_code = (function prepare_code(code){return clojure.string.replace.call(null,code,/^(\w+)(\s+)?=/,"let $1 =");
+});
+
+lt.objs.langs.haskell.__BEH__eval_BANG_ = (function __BEH__eval_BANG_(this$,event){var map__8256 = event;var map__8256__$1 = ((cljs.core.seq_QMARK_.call(null,map__8256))?cljs.core.apply.call(null,cljs.core.hash_map,map__8256):map__8256);var origin = cljs.core.get.call(null,map__8256__$1,new cljs.core.Keyword(null,"origin","origin",4300251800));var info = cljs.core.get.call(null,map__8256__$1,new cljs.core.Keyword(null,"info","info",1017141280));var loc = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"line","line",1017226086),(function (){var or__6741__auto__ = cljs.core.get_in.call(null,info,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"meta","meta",1017252215),new cljs.core.Keyword(null,"end","end",1014004813)], null));if(cljs.core.truth_(or__6741__auto__))
 {return or__6741__auto__;
 } else
 {return cljs.core.get_in.call(null,info,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"pos","pos",1014015430),new cljs.core.Keyword(null,"line","line",1017226086)], null));
 }
-})()], null);var ghci = new cljs.core.Keyword(null,"haskell.client","haskell.client",4292563063).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,origin));var ghci__$1 = ((cljs.core.not.call(null,ghci))?(function (){var ghci__$1 = lt.objs.langs.haskell.ghci_process.call(null,((function (map__8252,map__8252__$1,origin,info,loc,ghci){
-return (function (p1__8249_SHARP_,p2__8250_SHARP_){return cljs.core.get_in.call(null,cljs.core.deref.call(null,origin),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.result-fn","haskell.result-fn",3772146800)], null)).call(null,p1__8249_SHARP_,p2__8250_SHARP_);
-});})(map__8252,map__8252__$1,origin,info,loc,ghci))
-);lt.object.update_BANG_.call(null,origin,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.client","haskell.client",4292563063)], null),((function (ghci__$1,map__8252,map__8252__$1,origin,info,loc,ghci){
+})()], null);var ghci = new cljs.core.Keyword(null,"haskell.client","haskell.client",4292563063).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,origin));var ghci__$1 = ((cljs.core.not.call(null,ghci))?(function (){var ghci__$1 = lt.objs.langs.haskell.ghci_process.call(null,((function (map__8256,map__8256__$1,origin,info,loc,ghci){
+return (function (p1__8253_SHARP_,p2__8254_SHARP_){return cljs.core.get_in.call(null,cljs.core.deref.call(null,origin),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.result-fn","haskell.result-fn",3772146800)], null)).call(null,p1__8253_SHARP_,p2__8254_SHARP_);
+});})(map__8256,map__8256__$1,origin,info,loc,ghci))
+);lt.object.update_BANG_.call(null,origin,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.client","haskell.client",4292563063)], null),((function (ghci__$1,map__8256,map__8256__$1,origin,info,loc,ghci){
 return (function (_,n){return n;
-});})(ghci__$1,map__8252,map__8252__$1,origin,info,loc,ghci))
+});})(ghci__$1,map__8256,map__8256__$1,origin,info,loc,ghci))
 ,ghci__$1);
 return ghci__$1;
 })():ghci);lt.object.update_BANG_.call(null,origin,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"haskell.result-fn","haskell.result-fn",3772146800)], null),(function (_,n){return n;
 }),lt.objs.langs.haskell.show_result.call(null,origin,loc));
-return lt.objs.langs.haskell.ghci_command.call(null,ghci__$1,new cljs.core.Keyword(null,"code","code",1016963423).cljs$core$IFn$_invoke$arity$1(info));
+return lt.objs.langs.haskell.ghci_command.call(null,ghci__$1,lt.objs.langs.haskell.prepare_code.call(null,new cljs.core.Keyword(null,"code","code",1016963423).cljs$core$IFn$_invoke$arity$1(info)));
 });
 lt.object.behavior_STAR_.call(null,new cljs.core.Keyword("lt.objs.langs.haskell","eval!","lt.objs.langs.haskell/eval!",3675368899),new cljs.core.Keyword(null,"reaction","reaction",4441361819),lt.objs.langs.haskell.__BEH__eval_BANG_,new cljs.core.Keyword(null,"triggers","triggers",2516997421),new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"eval!","eval!",1110791799),null], null), null));
 
