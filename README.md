@@ -7,6 +7,16 @@ to it. It can currently evaluate the current selection or line and display
 the type of expressions. Because it uses `ghci` you should also be able
 to `import` libraries and do other things that `ghci` supports.
 
+## setup
+
+To be able to infer the types of expressions put something like the
+following in your `user.keymap`:
+
+    {:+ {:editor.haskell {"ctrl-i" [:editor-type-form]}}}
+
+Alternatively you can use the sidebar actions `Eval: Eval a form in an editor`
+and `Eval: Get the type of a form in editor` directly.
+
 ## todo
 
 * select expressions/forms (ideally by asking a proper haskell parser,
