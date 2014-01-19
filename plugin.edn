@@ -1,0 +1,7 @@
+{:name "Haskell"
+ :author "Lucas Stadler"
+ :version "0.0.1"
+ :source "https://github.com/heyLu/lt-haskell"
+ :desc "Haskell language plugin for Light Table"
+ :dependencies {}
+ :behaviors "haskell.behaviors"}
