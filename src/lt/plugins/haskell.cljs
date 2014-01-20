@@ -37,7 +37,7 @@
                           (when init-fn
                             (init-fn p))
                           (object/update! this [:proc :process] (fn [_ n] n) p)
-                          (notifos/done-working "ghci started")
+                          (notifos/done-working (str command " started"))
                           nil)))
 
 (defn ghci-process [cb]
