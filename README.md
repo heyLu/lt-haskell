@@ -1,5 +1,11 @@
 # Haskell for Light Table
 
+**Note**: This thing is *very alpha*, that is, it might not work,
+doesn't properly kill ghci when you close the tab, etc. There is also
+[another plugin for Haskell][https://github.com/jetaggart/light-haskell]
+that seems to be a bit more sophisticated, so you might want to try that
+instead.
+
 A plugin that supports inline-evaluation of Haskell code in Light Table.
 
 It spawns a `ghci` process in the background and sends code and commands
