@@ -36,6 +36,7 @@ with it:
     might not have an api)
 * code-completion
 * navigate to the source for code
+* better `Connect` support (appear in connections, support quitting)
 
 ## ideas
 
