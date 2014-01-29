@@ -1,10 +1,10 @@
 # Haskell for Light Table
 
-**Note**: This thing is *very alpha*, that is, it might not work,
-doesn't properly kill ghci when you close the tab, etc. There is also
-[another plugin for Haskell](https://github.com/jetaggart/light-haskell)
-that seems to be a bit more sophisticated, so you might want to try that
-instead.
+**Note**: This thing is most likely not going to be updated. The eval part
+has been merged into [light-haskell](https://github.com/jetaggart/light-haskell)
+and a general version of the "send stuff to process" pattern is being
+implemented in the [lt-interact](https://github.com/heyLu/lt-interact)
+plugin.
 
 A plugin that supports inline-evaluation of Haskell code in Light Table.
 
